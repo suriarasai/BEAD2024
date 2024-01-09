@@ -1,0 +1,21 @@
+hdfs dfs -ls /
+
+hdfs dfs -ls /user
+
+hdfs dfs -ls /user/cloudera
+
+sudo -u hdfs hadoop fs -mkdir /data 
+
+cd /home/cloudera/git/BEAD-SEP19/W01-HDFS/data/
+
+sudo -u hdfs hadoop fs -put kb /data/
+
+hdfs dfs -ls /data/kb
+
+hdfs dfs -cat /data/kb/KBDOC-00008.html | tail -n 20
+
+hdfs dfs -get /data/kb/KBDOC-00008.html ~/article.html
+
+less ~/article.html
+
+(to exit less mode - use instruction :q! to quit or esc in insert mode)

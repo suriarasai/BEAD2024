@@ -1,0 +1,24 @@
+SQOOP COMMANDS
+==============
+
+$ sqoop help
+
+$ sqoop list-tables --connect jdbc:mysql://localhost/employees --username root --password cloudera
+
+$ sqoop import --help
+
+$ sudo -u hdfs sqoop import --connect jdbc:mysql://localhost/employees --username root --password cloudera --table departments --target-dir /employees/departments --null-non-string '\\N'
+
+$ sudo -u hdfs sqoop import  --connect jdbc:mysql://localhost/world --username root --password cloudera --table city --where CountryCode=\'USA\' --target-dir /user/cloudera/world/city --null-non-string '\\N' 
+
+$ sudo -u hdfs sqoop import --connect jdbc:mysql://localhost/employees --username root --password cloudera --table titles --incremental append --check-column emp_no --last-value 1 --target-dir /user/cloudera/employees/titles --null-non-string '\\N'
+
+
+$ sudo -u hdfs sqoop import --connect jdbc:mysql://localhost:3306/world --driver com.mysql.jdbc.Driver --username root --password cloudera --table city --hbase-create-table --hbase-table city --column-family city_cf --hbase-row-key ID
+
+$ sudo -u hdfs sqoop import --connect jdbc:mysql://localhost:3306/world --driver com.mysql.jdbc.Driver --username root --password cloudera --table country --hbase-create-table --hbase-table country_detail --column-family country_cf --hbase-row-key Code -m 3
+
+
+
+
+
