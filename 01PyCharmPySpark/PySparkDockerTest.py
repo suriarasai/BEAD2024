@@ -1,5 +1,15 @@
 from pyspark.sql import SparkSession
-someFile = "dummy"
-# the above file is under your pythonProject folder
-spark = SparkSession.builder.appName("SimpleApp").master("spark://spark-master-1:7077").getOrCreate()
-print(spark.read.text(someFile).count())
+# Initialize SparkSession
+spark = SparkSession.builder \
+    .appName("HelloWorld") \
+    .master("spark://localhost:7077") \
+    .config("spark.executor.memory", "4g") \
+    .config("spark.executor.cores", "1") \
+    .config("spark.driver.memory", "4g") \
+    .config("spark.driver.cores", "1") \
+    .getOrCreate()
+print(spark.sparkContext.getConf().getAll())
+# Create a RDD
+data = [1, 2, 3, 4, 5]
+distData = spark.sparkContext.parallelize(data)
+print(distData.collect())

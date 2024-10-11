@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  minio:
+    image: quay.io/minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+
+  pyspark:
+    image: bitnami/spark:latest
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=512m
+      - SPARK_LOCAL_DIR=/tmp/spark-temp
+    volumes:
+      - ./workspace:/workspace
+    depends_on:
+      - minio
+    entrypoint: ["/bin/bash", "-c", "while true; do sleep 1000; done"]
+
+volumes:
+  minio-data:
